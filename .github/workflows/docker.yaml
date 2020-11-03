@@ -1,0 +1,19 @@
+name: Publish Docker Image
+on:
+  push:
+    branches: master
+jobs:
+  push_to_registry:
+    name: Push Docker image to GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: vhanda
+          password: ${{ secrets.DOCKER_TOKEN }}
+          registry: ghcr.io
+          repository: gitjournal/gotrue
+          tag_with_ref: true
